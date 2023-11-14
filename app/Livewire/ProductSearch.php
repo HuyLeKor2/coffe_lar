@@ -30,7 +30,7 @@ class ProductSearch extends Component
     }
     public function render()
     {
-        $products = Product::where(['status' => true]);
+        $products = Product::whereRaw("status = true ");
         $categories = Category::where(['status' => true])->get();
         if (!empty($this->categorySlug)) {
             $category = $categories->firstWhere('slug', $this->categorySlug);
@@ -45,17 +45,21 @@ class ProductSearch extends Component
 
         if (!empty($this->searchTerm)) {
             $products = $products
-                ->where('name', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+            ->whereRaw('name like "%' . $this->searchTerm . ' %"');
+            // ->where('name', 'like', '%' . $this->searchTerm . '%')
+            // ->where('name', 'like', '%' . $this->searchTerm . '%');
+            // ->orWhere('description', 'like', '%' . $this->searchTerm . '%');;
         }
-
+        // dd($products->toSql());
 
 //        if ($request->filled('range-min') && $request->filled('range-max')) {
 //            $from = $request->input('range-min');
 //            $to = $request->input('range-max');
 //            $products = $products->where('price', '>=', $from)->where('price', '<=', $to);
 //        }
-        $products = $products->orderBy('id', 'DESC')->paginate(8);
+        // dd($products->toSql());
+        $products= $products->get();
+        // $products = $products->orderBy('id', 'DESC')->paginate(8);
 
         return view('livewire.product-search', [
             'products' => $products,

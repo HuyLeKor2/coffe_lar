@@ -45,11 +45,14 @@ class ProductSearch extends Component
 
         if (!empty($this->searchTerm)) {
             $products = $products
-                ->where('name', 'like', '%' . $this->searchTerm . '%')
+//                ->where('name', 'like', '%' . $this->searchTerm . '%')
+                ->whereRaw('name="'.$this->searchTerm.'"')
+                //dùng phương pháp whereRaw để viết và chúng trước biến này phải " " trước $this->searchTerm vì cần chuỗi
+
                 ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
         }
 
-
+//        dd($products->toSql());
 //        if ($request->filled('range-min') && $request->filled('range-max')) {
 //            $from = $request->input('range-min');
 //            $to = $request->input('range-max');

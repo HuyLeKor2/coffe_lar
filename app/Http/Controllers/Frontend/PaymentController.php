@@ -15,8 +15,6 @@ class PaymentController extends Controller
     public function __construct(OrderService $orderService)
     {
         $this->orderService = $orderService;
-
-
     }
 
 

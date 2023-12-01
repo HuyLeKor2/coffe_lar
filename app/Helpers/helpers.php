@@ -123,13 +123,14 @@ function limitText($text, $limit = 20)
 use App\Models\Materials;
 use App\Models\User;
 use Carbon\Carbon;
+use Hamcrest\Type\IsNumeric;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('currency_format')) {
 
     function currency_format($number, $suffix = 'đ')
     {
-        if (!empty($number)) {
+        if (!empty($number) && is_numeric($number)) {
             return number_format($number, 0, '.', '.') . "{$suffix}";
         }
     }

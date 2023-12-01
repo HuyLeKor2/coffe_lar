@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="row align-items-center">
-
+ 
         @if($products->count()>0)
             @foreach($products as $value)
 
@@ -63,14 +63,13 @@
         @endif
 
     </div>
-    @if($products->count()>0)
-        <div class="row">
+    @if($products->count()>0)  
+          <div class="row">
             <div class="col-12">
+                {{-- {{ $products->links() }} --}}
+             </div> 
 
-                {{ $products->links() }}
-            </div>
-
-        </div>
+        </div> 
     @endif
 
 </div>
